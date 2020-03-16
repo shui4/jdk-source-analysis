@@ -450,13 +450,85 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_reentrantreadwritelock"><a class="anchor" href="#_reentrantreadwritelock"></a>1. ReentrantReadWriteLock</h2>
 <div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package com.diguage.truman.concurrent;
 
+import org.junit.Test;
+
+import java.util.Random;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+/**
+ * @author D瓜哥, https://www.diguage.com/
+ * @since 2020-03-16 17:07
+ */
+public class ReentrantReadWriteLockTest {
+    private volatile int value;
+
+    public int handleRead(Lock lock) throws InterruptedException {
+        try {
+            lock.lock();
+            Thread.sleep(1000);
+            System.out.println(Thread.currentThread().getId() + " : read done!");
+            return value;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void handleWrite(Lock lock, int value) throws InterruptedException {
+        try {
+            lock.lock();
+            Thread.sleep(1000);
+            this.value = value;
+            System.out.println(Thread.currentThread().getId() + " : write done!");
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    @Test
+    public void test() throws InterruptedException {
+        ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+        ReentrantReadWriteLock.ReadLock readLock = readWriteLock.readLock();
+        ReentrantReadWriteLock.WriteLock writeLock = readWriteLock.writeLock();
+
+        Runnable readTask = () -&gt; {
+            try {
+                handleRead(readLock);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+
+        Runnable writeTask = () -&gt; {
+            try {
+                handleWrite(writeLock, new Random().nextInt());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+
+        for (int i = 1; i &lt;= 20; i++) {
+            if (i % 10 == 5) {
+                new Thread(writeTask).start();
+            } else {
+                new Thread(readTask).start();
+            }
+        }
+        Thread.sleep(20 * 1000);
+    }
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-16 16:42:01 +0800
+Last updated 2020-03-16 17:07:50 +0800
 </div>
 </div>
 </body>
