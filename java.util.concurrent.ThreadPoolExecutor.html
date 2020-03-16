@@ -458,6 +458,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_threadpoolexecutor_源码分析"><a class="anchor" href="#_threadpoolexecutor_源码分析"></a>1. ThreadPoolExecutor 源码分析</h2>
 <div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="./images/ThreadPoolExecutor-process.png" alt="ThreadPoolExecutor process">
+</div>
+</div>
 <div class="sect2">
 <h3 id="_大纲"><a class="anchor" href="#_大纲"></a>1.1. 大纲</h3>
 <div class="olist arabic">
@@ -532,6 +537,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>这个线程池还有哪些可以改进的地方？比如 Guava 中提供了哪些线程池？</p>
 </li>
+<li>
+<p>如何改造成添加任务，如果没有达到 <code>maxPoolSize</code> 则先创建线程？</p>
+</li>
 </ol>
 </div>
 </div>
@@ -589,6 +597,120 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>添加任务时， <code>execute()</code> 方法的第二种情况，为什么还有再次检查？</p>
 </li>
 </ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package com.diguage.truman.concurrent;
+
+import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
+
+/**
+ * @author D瓜哥, https://www.diguage.com/
+ * @since 2020-03-10 10:50
+ */
+public class ThreadPoolExecutorTest {
+    @Test
+    public void testPoolSize() {
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2, 4, 1L, TimeUnit.MINUTES, new LinkedBlockingQueue&lt;&gt;(6));
+        for (int i = 0; i &lt; 10; i++) {
+            executorService.execute(new Task("Task-" + i));
+        }
+        executorService.shutdown();
+        while (!executorService.isTerminated()) {
+        }
+        System.out.println("Finish all thread...");
+    }
+
+    @Test
+    public void testCallable() {
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2, 4, 1L, TimeUnit.MINUTES, new LinkedBlockingQueue&lt;&gt;(6));
+        List&lt;Future&lt;String&gt;&gt; futures = new ArrayList&lt;&gt;(10);
+        for (int i = 0; i &lt; 10; i++) {
+            Future&lt;String&gt; future = executorService.submit(new CallableTask("CallableTask-" + i));
+            futures.add(future);
+        }
+        for (Future&lt;String&gt; future : futures) {
+            try {
+                System.out.println(LocalDateTime.now() + "::" + future.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        while (!executorService.isTerminated()) {
+        }
+        System.out.println("Finish all thread...");
+    }
+
+    @Test
+    public void testComplete() {
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2, 4, 1L, TimeUnit.MINUTES, new LinkedBlockingQueue&lt;&gt;(6));
+        List&lt;Future&lt;String&gt;&gt; futures = new ArrayList&lt;&gt;(10);
+        for (int i = 0; i &lt; 10; i++) {
+            Future&lt;String&gt; future = executorService.submit(new CallableTask("CallableTask-" + i));
+            futures.add(future);
+        }
+        for (Future&lt;String&gt; future : futures) {
+            try {
+                System.out.println(LocalDateTime.now() + "::" + future.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        while (!executorService.isTerminated()) {
+        }
+        System.out.println("Finish all thread...");
+    }
+
+    public static class CallableTask implements Callable&lt;String&gt; {
+        private final String name;
+
+        public CallableTask(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String call() throws Exception {
+            Thread.sleep(1000);
+            //返回执行当前 Callable 的线程名字
+            return Thread.currentThread().getName();
+        }
+    }
+
+    public static class Task implements Runnable {
+        private String name;
+
+        public Task(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            System.out.println(Thread.currentThread().getName() + " Start. Time = " + LocalDateTime.now());
+            processCommand();
+            System.out.println(Thread.currentThread().getName() + " End. Time = " + LocalDateTime.now());
+        }
+
+        private void processCommand() {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
+    }
+
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -663,7 +785,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-05 10:03:38 +0800
+Last updated 2020-03-16 16:42:01 +0800
 </div>
 </div>
 </body>

@@ -468,6 +468,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_clh_lock_queue_介绍"><a class="anchor" href="#_clh_lock_queue_介绍"></a>1.1. CLH lock queue 介绍</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/AbstractQueuedSynchronizer-CLH-queue.png" alt="AbstractQueuedSynchronizer CLH queue">
+</div>
+</div>
 <div class="paragraph">
 <p>终于看明白了 CLH lock queue。CLH 通过自旋来锁定当前节点。自旋的好处是线程不需要睡眠和唤醒，减小了系统调用的开销。</p>
 </div>
@@ -520,6 +525,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>模板方法：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>isHeldExclusively()</code>&#8201;&#8212;&#8201;该线程是否正在独占资源。只有用到condition才需要去实现它。</p>
+</li>
+<li>
+<p><code>tryAcquire(int)</code>&#8201;&#8212;&#8201;独占方式。尝试获取资源，成功则返回true，失败则返回false。</p>
+</li>
+<li>
+<p><code>tryRelease(int)</code>&#8201;&#8212;&#8201;独占方式。尝试释放资源，成功则返回true，失败则返回false。</p>
+</li>
+<li>
+<p><code>tryAcquireShared(int)</code>&#8201;&#8212;&#8201;共享方式。尝试获取资源。负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源。</p>
+</li>
+<li>
+<p><code>tryReleaseShared(int)</code>&#8201;&#8212;&#8201;共享方式。尝试释放资源，成功则返回true，失败则返回false。</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -538,6 +565,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p><a href="https://www.cnblogs.com/waterystone/p/4920797.html">Java并发之AQS详解 - waterystone - 博客园</a></p>
+</li>
+<li>
+<p><a href="https://www.cnblogs.com/chengxiao/archive/2017/07/24/7141160.html">Java并发包基石-AQS详解 - dreamcatcher-cx - 博客园</a></p>
+</li>
 <li>
 <p><a href="http://www.cnblogs.com/leesf456/p/5350186.html">【JUC】JDK1.8源码分析之AbstractQueuedSynchronizer（二） - leesf - 博客园</a></p>
 </li>
@@ -585,7 +618,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-05 10:03:38 +0800
+Last updated 2020-03-16 16:42:01 +0800
 </div>
 </div>
 </body>

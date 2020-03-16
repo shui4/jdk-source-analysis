@@ -479,7 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>支持泛型，继承了 <code>AbstractList</code>，实现了 <code>List</code> 接口。</p>
 </li>
 <li>
-<p><code>RandomAccess</code> 用来表明其支持快速（通常是固定时间）随机访问。</p>
+<p><code>RandomAccess</code> 用来表明其支持快速（通常是固定时间）随机访问。在 <code>Collections.binarySearch()</code> 方法中，它要判断传入的list 是否 <code>RamdomAccess</code> 的实例，如果是，调用 <code>Collections.indexedBinarySearch(list, key)</code> 方法，如果不是，那么调用 <code>Collections.iteratorBinarySearch(list, key)</code> 方法。</p>
 </li>
 <li>
 <p><code>Cloneable</code> 可以调用 <code>Object.clone()</code> 方法返回该对象的浅拷贝。</p>
@@ -1915,7 +1915,7 @@ public void replaceAll(UnaryOperator&lt;E&gt; operator) {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-05 10:03:38 +0800
+Last updated 2020-03-16 16:42:01 +0800
 </div>
 </div>
 </body>
