@@ -7671,6 +7671,9 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 88
 89
 90
+91
+92
+93
 </pre></td><td class="code"><pre><span class="kn">package</span> <span class="nn">com.diguage.truman.concurrent</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
@@ -7689,7 +7692,8 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
             <span class="k">try</span> <span class="o">{</span>
                 <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="o">);</span>
             <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"testState: is interrupted at "</span> <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"testState: is interrupted at "</span>
+                        <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
                 <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
             <span class="o">}</span>
             <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  EndTime: "</span> <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
@@ -7708,7 +7712,8 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
                 <span class="nc">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span>
                 <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
                     <span class="k">if</span> <span class="o">(</span><span class="n">thread</span><span class="o">.</span><span class="na">isInterrupted</span><span class="o">())</span> <span class="o">{</span>
-                        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"InterruptTask was interrupted at "</span> <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+                        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"InterruptTask was interrupted at "</span>
+                                <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
                     <span class="o">}</span>
 <span class="c1">//                    try {</span>
 <span class="c1">//                        Thread.sleep(5 * 1000);</span>
@@ -7739,7 +7744,8 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testJoin</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
         <span class="nc">JoinMain</span><span class="o">.</span><span class="na">AddThread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JoinMain</span><span class="o">.</span><span class="na">AddThread</span><span class="o">();</span>
         <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-        <span class="n">thread</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> <span class="c1">// 执行这句话，则下面的输出会等 thread 执行完成后，i值等于100000；如果注释掉，则瞬间向下执行，i值很小。</span>
+        <span class="c1">// 执行这句话，则下面的输出会等 thread 执行完成后，i值等于100000；如果注释掉，则瞬间向下执行，i值很小。</span>
+        <span class="n">thread</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
         <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">JoinMain</span><span class="o">.</span><span class="na">i</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -8747,6 +8753,7 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 49
 50
 51
+52
 </pre></td><td class="code"><pre><span class="kn">package</span> <span class="nn">com.diguage.truman.concurrent</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
@@ -8764,7 +8771,8 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CyclicBarrierTest</span> <span class="o">{</span>
     <span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
-        <span class="nc">CyclicBarrier</span> <span class="n">barrier</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CyclicBarrier</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"集合完毕，出发……"</span><span class="o">));</span>
+        <span class="nc">CyclicBarrier</span> <span class="n">barrier</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CyclicBarrier</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span>
+                <span class="o">()</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"集合完毕，出发……"</span><span class="o">));</span>
         <span class="nc">ExecutorService</span> <span class="n">executorService</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
             <span class="n">executorService</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Task</span><span class="o">(</span><span class="n">barrier</span><span class="o">,</span> <span class="s">"Task-"</span> <span class="o">+</span> <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)));</span>
@@ -9045,6 +9053,12 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 47
 48
 49
+50
+51
+52
+53
+54
+55
 </pre></td><td class="code"><pre><span class="kn">package</span> <span class="nn">com.diguage.truman.concurrent</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
@@ -9060,8 +9074,12 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">FirstApp</span> <span class="kd">implements</span> <span class="nc">Runnable</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal</span> <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"FirstApp-1"</span><span class="o">);</span>
-        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal2</span> <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"FirstApp-2"</span><span class="o">);</span>
+        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal</span>
+                <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"FirstApp-1"</span><span class="o">);</span>
+
+        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal2</span>
+                <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"FirstApp-2"</span><span class="o">);</span>
+
         <span class="kd">private</span> <span class="nc">SecondApp</span> <span class="n">secondApp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SecondApp</span><span class="o">();</span>
         <span class="kd">private</span> <span class="nc">ThridApp</span> <span class="n">thridApp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThridApp</span><span class="o">();</span>
 
@@ -9075,7 +9093,8 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SecondApp</span> <span class="kd">implements</span> <span class="nc">Runnable</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal</span> <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"SecondApp"</span><span class="o">);</span>
+        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal</span>
+                <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="s">"SecondApp"</span><span class="o">);</span>
 
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
@@ -9084,7 +9103,8 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ThridApp</span> <span class="kd">implements</span> <span class="nc">Runnable</span> <span class="o">{</span>
-        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal</span> <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">threadLocal</span>
+                <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
 
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
@@ -9567,6 +9587,21 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 108
 109
 110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
 </pre></td><td class="code"><pre><span class="kn">package</span> <span class="nn">com.diguage.truman.concurrent</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
@@ -9583,7 +9618,10 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ThreadPoolExecutorTest</span> <span class="o">{</span>
     <span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testPoolSize</span><span class="o">()</span> <span class="o">{</span>
-        <span class="nc">ThreadPoolExecutor</span> <span class="n">executorService</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadPoolExecutor</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">1L</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">,</span> <span class="k">new</span> <span class="nc">LinkedBlockingQueue</span><span class="o">&lt;&gt;(</span><span class="mi">6</span><span class="o">));</span>
+        <span class="nc">ThreadPoolExecutor</span> <span class="n">executorService</span>
+                <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadPoolExecutor</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">1L</span><span class="o">,</span>
+                <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">,</span> <span class="k">new</span> <span class="nc">LinkedBlockingQueue</span><span class="o">&lt;&gt;(</span><span class="mi">6</span><span class="o">));</span>
+
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
             <span class="n">executorService</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="nc">Task</span><span class="o">(</span><span class="s">"Task-"</span> <span class="o">+</span> <span class="n">i</span><span class="o">));</span>
         <span class="o">}</span>
@@ -9595,10 +9633,15 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 
     <span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCallable</span><span class="o">()</span> <span class="o">{</span>
-        <span class="nc">ThreadPoolExecutor</span> <span class="n">executorService</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadPoolExecutor</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">1L</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">,</span> <span class="k">new</span> <span class="nc">LinkedBlockingQueue</span><span class="o">&lt;&gt;(</span><span class="mi">6</span><span class="o">));</span>
+        <span class="nc">ThreadPoolExecutor</span> <span class="n">executorService</span>
+                <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadPoolExecutor</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">1L</span><span class="o">,</span>
+                <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">,</span> <span class="k">new</span> <span class="nc">LinkedBlockingQueue</span><span class="o">&lt;&gt;(</span><span class="mi">6</span><span class="o">));</span>
+
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="n">futures</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;(</span><span class="mi">10</span><span class="o">);</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">executorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="k">new</span> <span class="nc">CallableTask</span><span class="o">(</span><span class="s">"CallableTask-"</span> <span class="o">+</span> <span class="n">i</span><span class="o">));</span>
+            <span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">executorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span>
+                    <span class="k">new</span> <span class="nf">CallableTask</span><span class="o">(</span><span class="s">"CallableTask-"</span> <span class="o">+</span> <span class="n">i</span><span class="o">));</span>
+
             <span class="n">futures</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">future</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="k">for</span> <span class="o">(</span><span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">:</span> <span class="n">futures</span><span class="o">)</span> <span class="o">{</span>
@@ -9615,10 +9658,14 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 
     <span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testComplete</span><span class="o">()</span> <span class="o">{</span>
-        <span class="nc">ThreadPoolExecutor</span> <span class="n">executorService</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadPoolExecutor</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">1L</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">,</span> <span class="k">new</span> <span class="nc">LinkedBlockingQueue</span><span class="o">&lt;&gt;(</span><span class="mi">6</span><span class="o">));</span>
+        <span class="nc">ThreadPoolExecutor</span> <span class="n">executorService</span>
+                <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadPoolExecutor</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">1L</span><span class="o">,</span>
+                <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MINUTES</span><span class="o">,</span> <span class="k">new</span> <span class="nc">LinkedBlockingQueue</span><span class="o">&lt;&gt;(</span><span class="mi">6</span><span class="o">));</span>
+
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span> <span class="n">futures</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;(</span><span class="mi">10</span><span class="o">);</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">executorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="k">new</span> <span class="nc">CallableTask</span><span class="o">(</span><span class="s">"CallableTask-"</span> <span class="o">+</span> <span class="n">i</span><span class="o">));</span>
+            <span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">executorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span>
+                    <span class="k">new</span> <span class="nf">CallableTask</span><span class="o">(</span><span class="s">"CallableTask-"</span> <span class="o">+</span> <span class="n">i</span><span class="o">));</span>
             <span class="n">futures</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">future</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="k">for</span> <span class="o">(</span><span class="nc">Future</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">:</span> <span class="n">futures</span><span class="o">)</span> <span class="o">{</span>
@@ -9657,9 +9704,13 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">" Start. Time = "</span> <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span>
+                    <span class="o">+</span> <span class="s">" Start. Time = "</span> <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+
             <span class="n">processCommand</span><span class="o">();</span>
-            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">" End. Time = "</span> <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span>
+                    <span class="o">+</span> <span class="s">" End. Time = "</span> <span class="o">+</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
         <span class="o">}</span>
 
         <span class="kd">private</span> <span class="kt">void</span> <span class="nf">processCommand</span><span class="o">()</span> <span class="o">{</span>
@@ -9675,7 +9726,6 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
             <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">}</span>
-
 <span class="o">}</span>
 </pre></td></tr></tbody></table></code></pre>
 </div>
@@ -9863,6 +9913,15 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 65
 66
 67
+68
+69
+70
+71
+72
+73
+74
+75
+76
 </pre></td><td class="code"><pre><span class="kn">package</span> <span class="nn">com.diguage.truman.concurrent</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
@@ -9870,6 +9929,7 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 <span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.LinkedList</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Objects</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.concurrent.ExecutionException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.concurrent.ForkJoinPool</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.concurrent.ForkJoinTask</span><span class="o">;</span>
@@ -9883,7 +9943,8 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
     <span class="nd">@Test</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
         <span class="nc">ForkJoinPool</span> <span class="n">pool</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ForkJoinPool</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
-        <span class="nc">FileCountTask</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileCountTask</span><span class="o">(</span><span class="s">"/Users/diguage/Documents/wiki.diguage.com/java/jdk-source-analysis"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">homePath</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"user.home"</span><span class="o">);</span>
+        <span class="nc">FileCountTask</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileCountTask</span><span class="o">(</span><span class="n">homePath</span><span class="o">);</span>
         <span class="nc">ForkJoinTask</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">task</span><span class="o">);</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="nc">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
@@ -9915,20 +9976,27 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
                 <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
             <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
                 <span class="nc">File</span><span class="o">[]</span> <span class="n">files</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">listFiles</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="nc">Objects</span><span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="n">files</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">files</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+                <span class="o">}</span>
                 <span class="nc">List</span><span class="o">&lt;</span><span class="nc">FileCountTask</span><span class="o">&gt;</span> <span class="n">subTasks</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
                 <span class="k">for</span> <span class="o">(</span><span class="nc">File</span> <span class="n">f</span> <span class="o">:</span> <span class="n">files</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="nc">FileCountTask</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileCountTask</span><span class="o">(</span><span class="n">f</span><span class="o">);</span>
-                    <span class="n">subTasks</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">task</span><span class="o">);</span>
-                    <span class="n">task</span><span class="o">.</span><span class="na">fork</span><span class="o">();</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">())</span> <span class="o">{</span>
+                        <span class="nc">FileCountTask</span> <span class="n">task</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileCountTask</span><span class="o">(</span><span class="n">f</span><span class="o">);</span>
+                        <span class="n">subTasks</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">task</span><span class="o">);</span>
+                        <span class="n">task</span><span class="o">.</span><span class="na">fork</span><span class="o">();</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+                    <span class="o">}</span>
                 <span class="o">}</span>
                 <span class="k">for</span> <span class="o">(</span><span class="nc">FileCountTask</span> <span class="n">subTask</span> <span class="o">:</span> <span class="n">subTasks</span><span class="o">)</span> <span class="o">{</span>
                     <span class="n">count</span> <span class="o">+=</span> <span class="n">subTask</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
                 <span class="o">}</span>
             <span class="o">}</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%8d     %s %n"</span><span class="o">,</span> <span class="n">count</span><span class="o">,</span> <span class="n">file</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
             <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">}</span>
-
 <span class="o">}</span>
 </pre></td></tr></tbody></table></code></pre>
 </div>
@@ -10677,7 +10745,7 @@ key效率要更快些。对于HashMap的源码暂时就分析这么多，由于�
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-16 19:15:39 +0800
+Last updated 2020-03-16 20:41:02 +0800
 </div>
 </div>
 <style>

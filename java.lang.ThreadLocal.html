@@ -569,8 +569,12 @@ public class ThreadLocalTest {
     }
 
     private static class FirstApp implements Runnable {
-        private ThreadLocal&lt;String&gt; threadLocal = ThreadLocal.withInitial(() -&gt; "FirstApp-1");
-        private ThreadLocal&lt;String&gt; threadLocal2 = ThreadLocal.withInitial(() -&gt; "FirstApp-2");
+        private ThreadLocal&lt;String&gt; threadLocal
+                = ThreadLocal.withInitial(() -&gt; "FirstApp-1");
+
+        private ThreadLocal&lt;String&gt; threadLocal2
+                = ThreadLocal.withInitial(() -&gt; "FirstApp-2");
+
         private SecondApp secondApp = new SecondApp();
         private ThridApp thridApp = new ThridApp();
 
@@ -584,7 +588,8 @@ public class ThreadLocalTest {
     }
 
     private static class SecondApp implements Runnable {
-        private ThreadLocal&lt;String&gt; threadLocal = ThreadLocal.withInitial(() -&gt; "SecondApp");
+        private ThreadLocal&lt;String&gt; threadLocal
+                = ThreadLocal.withInitial(() -&gt; "SecondApp");
 
         @Override
         public void run() {
@@ -593,7 +598,8 @@ public class ThreadLocalTest {
     }
 
     private static class ThridApp implements Runnable {
-        private ThreadLocal&lt;String&gt; threadLocal = ThreadLocal.withInitial(() -&gt; getClass().getName());
+        private ThreadLocal&lt;String&gt; threadLocal
+                = ThreadLocal.withInitial(() -&gt; getClass().getName());
 
         @Override
         public void run() {
@@ -620,7 +626,7 @@ public class ThreadLocalTest {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-03-16 16:43:22 +0800
+Last updated 2020-03-16 20:41:02 +0800
 </div>
 </div>
 </body>
